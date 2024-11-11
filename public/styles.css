@@ -1,0 +1,690 @@
+/* styles.css */
+
+/* Custom styles for the video overlay */
+.video-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+/* Hover effect for the sign-up button */
+.signup-button {
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  transition: background-color 0.5s, transform 0.5s;
+}
+
+.signup-button:hover {
+  background-color: rgba(255, 255, 255, 0.4);
+  transform: scale(1.1) rotate(-5deg);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+}
+
+/* Countdown timer styling */
+#countdown {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+/* Style for the sign-up modal */
+#signupModal form input,
+#signupModal form select {
+  border: 1px solid #333;
+}
+
+/* Customize scrollbar (optional) */
+body::-webkit-scrollbar {
+  width: 12px;
+}
+
+body::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #555;
+  border-radius: 6px;
+  border: 3px solid #1a1a1a;
+}
+
+/* Add to your styles.css */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  opacity: 0;
+  animation: fade-in 1s forwards;
+}
+
+/* Greyscale styling for product images */
+.product-card img {
+  filter: grayscale(100%);
+  transition: filter 0.5s, transform 0.5s;
+}
+
+.product-card img:hover {
+  filter: grayscale(0%);
+  transform: scale(1.05);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  /* Adjust font sizes for smaller screens */
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  h2 {
+    font-size: 2rem;
+  }
+
+  h3 {
+    font-size: 1.5rem;
+  }
+
+  /* Adjust padding and margins */
+  .p-8 {
+    padding: 2rem;
+  }
+
+  .mt-8 {
+    margin-top: 2rem;
+  }
+
+  /* Stack product cards vertically */
+  .grid-cols-3 {
+    grid-template-columns: 1fr;
+  }
+
+  /* Adjust image heights */
+  .product-card img {
+    height: auto;
+  }
+}
+
+/* Checkout modal styling */
+#checkoutModal {
+  z-index: 60;
+}
+
+#checkoutModal input {
+  /* Ensure inputs are full width on mobile */
+  width: 100%;
+}
+
+/* Style the checkout button */
+.checkout-button {
+  z-index: 20;
+}
+
+/* Hero Section Overlay */
+.video-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+/* Sign-Up Button Styling */
+.signup-button {
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  transition: background-color 0.5s, transform 0.5s;
+}
+
+.signup-button:hover {
+  background-color: rgba(255, 255, 255, 0.4);
+  transform: scale(1.1) rotate(-5deg);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+}
+
+/* Cart Button */
+.cart-button {
+  z-index: 50;
+}
+
+.cart-button svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+/* Shopping Cart */
+#cart {
+  z-index: 40;
+}
+
+/* Product Card */
+.product-card {
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.5s;
+}
+
+.product-card:hover {
+  transform: translateY(-10px) rotate(2deg) skew(-1deg, -1deg);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+}
+
+.product-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.product-card:hover::before {
+  opacity: 1;
+}
+
+/* Greyscale Images with Hover Color */
+.product-card img {
+  filter: grayscale(100%);
+  transition: filter 0.5s, transform 0.5s;
+}
+
+.product-card:hover img {
+  filter: grayscale(0%);
+  transform: scale(1.05);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  /* Adjust Hero Text Size */
+  .hero-section h1 {
+    font-size: 3rem;
+  }
+
+  .hero-section p {
+    font-size: 1.5rem;
+  }
+
+  /* Stack Product Cards */
+  .grid-cols-3 {
+    grid-template-columns: 1fr;
+  }
+
+  /* Adjust Padding */
+  .p-8 {
+    padding: 2rem;
+  }
+
+  /* Adjust Margins */
+  .mt-8 {
+    margin-top: 2rem;
+  }
+}
+
+/* Fade-in Animation */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  opacity: 0;
+  animation: fade-in 1s forwards;
+}
+
+/* Checkout Modal Styling */
+#checkoutModal {
+  z-index: 60;
+}
+
+#checkoutModal input {
+  width: 100%;
+}
+
+/* Custom Scrollbar */
+body::-webkit-scrollbar {
+  width: 12px;
+}
+
+body::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #555;
+  border-radius: 6px;
+  border: 3px solid #1a1a1a;
+}
+
+/* Add to your styles.css */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 1s ease-in forwards;
+}
+
+/* Greyscale styling for product images */
+.product-card img {
+  filter: grayscale(100%);
+  transition: filter 0.5s;
+}
+
+.product-card img:hover {
+  filter: grayscale(0%);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  /* Adjust font sizes for smaller screens */
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  h2 {
+    font-size: 2rem;
+  }
+
+  h3 {
+    font-size: 1.5rem;
+  }
+
+  /* Adjust padding and margins */
+  .p-8 {
+    padding: 2rem;
+  }
+
+  .mt-8 {
+    margin-top: 2rem;
+  }
+
+  /* Stack product cards vertically */
+  .grid-cols-3 {
+    grid-template-columns: 1fr;
+  }
+
+  /* Adjust image heights */
+  .product-card img {
+    height: auto;
+  }
+}
+
+/* Checkout modal styling */
+#checkoutModal {
+  z-index: 50;
+}
+
+#checkoutModal input {
+  /* Ensure inputs are full width on mobile */
+  width: 100%;
+}
+
+/* Style the checkout button */
+.checkout-button {
+  z-index: 20;
+}
+
+/* Update body background color to Coca-Cola Red */
+body {
+  background-color: #F40009; /* Coca-Cola red */
+}
+
+/* Update font to Retro Fonts */
+body, h1, h2, h3, h4, h5, h6 {
+  font-family: 'Permanent Marker', 'Pacifico', cursive;
+}
+
+/* Hero Section Styling */
+.hero-section {
+  position: relative;
+  color: #FFFFFF;
+}
+
+.hero-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(244, 0, 9, 0.6); /* Semi-transparent red overlay */
+  z-index: -1;
+}
+
+/* Sign-Up Button Styling */
+.signup-button {
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid #fff;
+  transition: background-color 0.5s, transform 0.5s;
+}
+
+.signup-button:hover {
+  background-color: rgba(255, 255, 255, 0.4);
+  transform: scale(1.05);
+}
+
+/* Product Card Styling */
+.product-card {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.product-card h4 {
+  color: #FFD700; /* Gold color */
+  font-family: 'Pacifico', cursive;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+}
+
+/* Retro Patterns */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url('images/80s-pattern.png');
+  opacity: 0.05;
+  z-index: -2;
+}
+
+/* Text Shadows for Retro Effect */
+h1, h2, h3, .product-card h4 {
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+}
+
+/* Adjustments for Mobile Responsiveness */
+@media (max-width: 768px) {
+  /* Adjust Hero Text Size */
+  .hero-section h1 {
+    font-size: 3rem;
+  }
+  .hero-section p {
+    font-size: 1.25rem;
+  }
+}
+
+/* Crazy Hover Effect for Product Cards */
+.product-card:hover {
+  transform: translateY(-10px) rotate(2deg) skew(-1deg, -1deg);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Animated Gradient Border for Buttons */
+.signup-button, .product-card button {
+  position: relative;
+  overflow: hidden;
+}
+
+.signup-button::before, .product-card button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px;
+  background: linear-gradient(45deg, #FFD700, #FF1493, #00BFFF, #FFD700);
+  background-size: 400% 400%;
+  animation: gradientBorder 5s infinite;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+}
+
+@keyframes gradientBorder {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Neon Glow Text Effect */
+.hero-section h1 {
+  animation: neonGlow 1.5s infinite alternate;
+}
+
+@keyframes neonGlow {
+  from {
+    text-shadow: 0 0 10px rgba(255, 255, 0, 0.8),
+                 0 0 20px rgba(255, 0, 0, 0.6),
+                 0 0 30px rgba(255, 0, 0, 0.4);
+  }
+  to {
+    text-shadow: 0 0 20px rgba(255, 255, 0, 1),
+                 0 0 30px rgba(255, 0, 0, 0.8),
+                 0 0 40px rgba(255, 0, 0, 0.6);
+  }
+}
+
+/* Wavy Animation for Hero Subtitle */
+.hero-section p {
+  position: relative;
+  display: inline-block;
+}
+
+.hero-section p::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  width: 100%;
+  height: 2px;
+  background: currentColor;
+  animation: wiggle 2s infinite;
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(1deg); }
+  50% { transform: rotate(0deg); }
+  75% { transform: rotate(-1deg); }
+}
+
+/* Spinning Cart Icon on Hover */
+.cart-button:hover img {
+  animation: spin 0.7s ease-in-out;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Pulsating Add to Cart Buttons */
+.product-card button:hover {
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); }
+  50% { transform: scale(1.05); box-shadow: 0 0 20px rgba(255, 255, 255, 0.8); }
+}
+
+/* Transition for Product Images */
+.product-card img {
+  transition: transform 0.5s ease-in-out, filter 0.5s ease-in-out;
+}
+
+.product-card img:hover {
+  transform: scale(1.1) rotate(-2deg);
+  filter: grayscale(0%);
+}
+
+/* Update font family */
+body, h1, h2, h3, h4, h5, h6 {
+  font-family: 'Playfair Display', serif;
+}
+
+/* Update background and text colors to greys */
+body {
+  background-color: #1f1f1f; /* Dark grey */
+  color: #e5e5e5;           /* Light grey */
+}
+
+/* Enhance styling for the hero section */
+.hero-section {
+  background-image: url('images/greyscale-background.jpg');
+  background-size: cover;
+  background-position: center;
+  color: #e5e5e5;
+}
+
+/* Update hero text shadows */
+.hero-section h1, .hero-section p {
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+}
+
+/* Update sign-up button styling */
+.signup-button {
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+
+.signup-button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+}
+
+/* Update product card styling */
+.product-card {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.product-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);
+}
+
+/* Update product titles */
+.product-card h4 {
+  color: #e5e5e5;
+  font-weight: 700;
+}
+
+/* Update button inside product cards */
+.product-card button {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.product-card button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #1f1f1f;
+}
+
+/* Update cart button */
+.cart-button {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.cart-button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Replace cart icon styling */
+.cart-button img {
+  filter: invert(90%);
+  transition: transform 0.3s;
+}
+
+.cart-button:hover img {
+  transform: rotate(15deg) scale(1.1);
+}
+
+/* Adjust modal styling */
+#signupModal, #checkoutModal {
+  background-color: rgba(31, 31, 31, 0.95);
+}
+
+/* Adjust input fields */
+#signupModal input, #signupModal select,
+#checkoutModal input {
+  background-color: #2a2a2a;
+  color: #e5e5e5;
+  border: 1px solid #444;
+}
+
+#signupModal input::placeholder,
+#checkoutModal input::placeholder {
+  color: #999;
+}
+
+/* Adjust modal buttons */
+#signupModal button[type="submit"],
+#checkoutModal button[type="submit"] {
+  background-color: #e5e5e5;
+  color: #1f1f1f;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+#signupModal button[type="submit"]:hover,
+#checkoutModal button[type="submit"]:hover {
+  background-color: #d4d4d4;
+}
+
+/* Responsive adjustments if necessary */
+/* ... existing code ... */
+
+/* Adjust cart button icon styling */
+.cart-button i {
+  font-size: 1.5rem;
+}
+
+/* Product Modal Styling */
+#productModal {
+  z-index: 70;
+}
+
+#productModalContent img {
+  transition: transform 0.3s;
+}
+
+#productModalContent img:hover {
+  transform: scale(1.05);
+}
+
+#productModalContent h3,
+#productModalContent p {
+  color: #e5e5e5;
+}
+
+#productModalContent button {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+#productModalContent button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #1f1f1f;
+}
+
+/* Cursor pointer for product cards */
+.product-card {
+  cursor: pointer;
+}
+
+/* Ensure buttons inside product cards don't inherit cursor pointer */
+.product-card button {
+  cursor: default;
+}
+
+/* Adjust z-index of cart */
+#cart {
+  z-index: 60;
+}
+
+/* ... existing code ... */
+  
