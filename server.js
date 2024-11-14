@@ -1,189 +1,88 @@
 require('dotenv').config();
 const express = require('express');
-const app = express();
+const { Pool } = require('pg');
 const path = require('path');
-const multer = require('multer');
-const fs = require('fs').promises;
-const session = require('express-session');
 
-// Serve static files from the public directory
-app.use(express.static(path.join(__dirname, 'public')));
+// Initialize Express app
+const app = express();
+
+// PostgreSQL connection configuration
+const pool = new Pool({
+  user: process.env.PGUSER,
+  host: process.env.PGHOST,
+  database: process.env.PGDATABASE,
+  password: process.env.PGPASSWORD,
+  port: process.env.PGPORT,
+});
+
+// Middleware
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-// Initialize Stripe if the key exists
-let stripe;
-if (process.env.STRIPE_SECRET_KEY) {
-    stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-}
+// Serve static files from public directory
+app.use(express.static('public'));
 
-// Add this near the top
-const DOMAIN = process.env.NODE_ENV === 'production' 
-    ? 'https://fromtheattic.vercel.app'
-    : 'http://localhost:3000';
-
-// Configure multer for file uploads
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'public/images/products')
-    },
-    filename: function (req, file, cb) {
-        cb(null, Date.now() + '-' + file.originalname)
-    }
+// API endpoint for gallery
+app.get('/api/gallery', async (req, res) => {
+  try {
+    const result = await pool.query(`
+      SELECT * FROM gallery_items 
+      ORDER BY created_at DESC
+    `);
+    res.json(result.rows);
+  } catch (err) {
+    console.error('Error fetching gallery items:', err);
+    res.status(500).json({ error: 'Failed to fetch gallery items' });
+  }
 });
 
-const upload = multer({ storage: storage });
-
-// Add this before your routes
-app.use(session({
-    secret: 'your-secret-key',
-    resave: false,
-    saveUninitialized: true,
-    cookie: { secure: process.env.NODE_ENV === 'production' }
-}));
-
-// Example login route
-app.post('/login', (req, res) => {
-    const { username, password } = req.body;
-    // Validate user credentials (this is just a placeholder)
-    if (username === 'admin' && password === 'password') {
-        req.session.user = { username };
-        return res.redirect('/admin.html');
-    }
-    res.status(401).send('Unauthorized');
+// Create a new gallery item
+app.post('/api/gallery', async (req, res) => {
+  const { title, description, image_url } = req.body;
+  
+  try {
+    const result = await pool.query(
+      `INSERT INTO gallery_items (title, description, image_url) 
+       VALUES ($1, $2, $3) 
+       RETURNING *`,
+      [title, description, image_url]
+    );
+    res.status(201).json(result.rows[0]);
+  } catch (err) {
+    console.error('Error creating gallery item:', err);
+    res.status(500).json({ error: 'Failed to create gallery item' });
+  }
 });
 
-// Middleware to protect admin routes
-function isAuthenticated(req, res, next) {
-    if (req.session.user) {
-        return next();
-    }
-    res.redirect('/login.html'); // Redirect to login page
-}
-
-// Protect the admin route
-app.get('/admin.html', isAuthenticated, (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'admin.html'));
+// Test database connection
+pool.connect((err, client, release) => {
+  if (err) {
+    return console.error('Error acquiring client', err.stack);
+  }
+  console.log('Successfully connected to PostgreSQL database');
+  release();
 });
 
-// Handle root and index requests
-app.get(['/', '/index.html', '/Index.html'], (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+// Basic route
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// Handle about page
-app.get('/about', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'about.html'));
+// Health check route
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'OK' });
 });
 
-// Stripe checkout endpoint (only if Stripe is initialized)
-app.post('/create-checkout-session', async (req, res) => {
-    if (!stripe) {
-        return res.status(500).send('Stripe is not configured');
-    }
-
-    const { cartItems } = req.body;
-
-    try {
-        const lineItems = cartItems.map(item => ({
-            price_data: {
-                currency: 'usd',
-                product_data: {
-                    name: item.name,
-                    images: item.images,
-                },
-                unit_amount: Math.round(item.price * 100),
-            },
-            quantity: item.quantity,
-        }));
-
-        const session = await stripe.checkout.sessions.create({
-            payment_method_types: ['card'],
-            line_items: lineItems,
-            mode: 'payment',
-            success_url: `${DOMAIN}/success.html`,
-            cancel_url: `${DOMAIN}/cancel.html`,
-        });
-
-        res.json({ id: session.id });
-    } catch (error) {
-        console.error('Error creating checkout session:', error);
-        res.status(500).send('Error creating checkout session');
-    }
-});
-
-// Route to handle product uploads
-app.post('/api/products', upload.single('image'), async (req, res) => {
-    try {
-        const { name, price, description } = req.body;
-        const imageUrl = `/images/products/${req.file.filename}`;
-        
-        // Read existing products
-        let products = [];
-        try {
-            const data = await fs.readFile('products.json', 'utf8');
-            products = JSON.parse(data);
-        } catch (error) {
-            // File doesn't exist yet, that's ok
-        }
-        
-        // Add new product
-        const newProduct = {
-            id: Date.now().toString(),
-            name,
-            price: parseFloat(price),
-            description,
-            imageUrl
-        };
-        
-        products.push(newProduct);
-        
-        // Save updated products
-        await fs.writeFile('products.json', JSON.stringify(products, null, 2));
-        
-        res.json(newProduct);
-    } catch (error) {
-        console.error('Error adding product:', error);
-        res.status(500).send('Error adding product');
-    }
-});
-
-// Route to get all products
-app.get('/api/products', async (req, res) => {
-    try {
-        const data = await fs.readFile('products.json', 'utf8');
-        const products = JSON.parse(data);
-        res.json(products);
-    } catch (error) {
-        res.json([]);
-    }
-});
-
-app.delete('/api/products/:id', async (req, res) => {
-    try {
-        const data = await fs.readFile('products.json', 'utf8');
-        let products = JSON.parse(data);
-        
-        const product = products.find(p => p.id === req.params.id);
-        if (product) {
-            // Delete the image file
-            try {
-                await fs.unlink(path.join(__dirname, 'public', product.imageUrl));
-            } catch (error) {
-                console.error('Error deleting image:', error);
-            }
-        }
-        
-        products = products.filter(p => p.id !== req.params.id);
-        await fs.writeFile('products.json', JSON.stringify(products, null, 2));
-        
-        res.json({ success: true });
-    } catch (error) {
-        console.error('Error deleting product:', error);
-        res.status(500).send('Error deleting product');
-    }
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ error: 'Something broke!' });
 });
 
 const PORT = process.env.PORT || 3000;
+
 app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`Server is running on port ${PORT}`);
 });
+
+module.exports = app; 

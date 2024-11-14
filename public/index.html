@@ -1,474 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>From the Attic</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <link href="/public/styles.css" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;900&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Pacifico&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
-  <!-- Include Font Awesome for icons -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Art Gallery</title>
+    <link rel="stylesheet" href="/styles.css">
 </head>
-<body class="bg-gray-900 text-gray-100 font-['Playfair_Display']">
-  <!-- Navigation Bar -->
-  <nav class="fixed top-0 w-full z-50 text-gray-100">
-    <div class="container mx-auto flex justify-between items-center px-6">
-      <a href="#" class="text-3xl font-bold">From the Attic</a>
-      <div class="space-x-6">
-        <!-- About Link -->
-        <a href="/about.html" class="hover:text-gray-400 transition-colors duration-300">About</a>
-        <!-- eBay Store Link -->
-        <a href="https://www.fromtheatticla.com" target="_blank" rel="noopener noreferrer" class="hover:text-gray-400 transition-colors duration-300">
-          Check out our store
-        </a>
-        <!-- Instagram Link -->
-        <a href="https://www.instagram.com/your-instagram-username" target="_blank" rel="noopener noreferrer" class="hover:text-gray-400 transition-colors duration-300">
-          Instagram
-        </a>
-        <!-- Cart Button -->
-        <button onclick="toggleCart()" class="cart-button bg-gray-800 text-white p-3 rounded-full hover:bg-gray-700 transition-colors duration-300">
-          <i class="fas fa-shopping-bag text-xl"></i>
-        </button>
-      </div>
-    </div>
-  </nav>
+<body>
+    <div class="container">
+        <header>
+            <h1>Art Gallery</h1>
+            <div id="status" class="status">Checking server status...</div>
+        </header>
+        
+        <main>
+            <!-- Gallery Upload Form -->
+            <section class="upload-form">
+                <h2>Add New Artwork</h2>
+                <form id="galleryForm">
+                    <div class="form-group">
+                        <label for="title">Title:</label>
+                        <input type="text" id="title" name="title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description:</label>
+                        <textarea id="description" name="description" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="image_url">Image URL:</label>
+                        <input type="url" id="image_url" name="image_url" required>
+                    </div>
+                    <button type="submit">Add Artwork</button>
+                </form>
+            </section>
 
-  <!-- Main content without top padding -->
-  <div>
-    <!-- Hero Section with Video Background -->
-    <section class="hero-section h-screen relative flex flex-col justify-center items-center text-center overflow-hidden" style="background-image: url('https://media.istockphoto.com/id/525885237/photo/palm-trees-at-dawn.jpg?s=612x612&w=0&k=20&c=wWXMNyaUVhQz4bc9YKGFzs4973E_hZLF4vZugvHRY6M='); background-size: cover; background-position: center; filter: grayscale(50%);">
-      <!-- Grey overlay -->
-      <div class="absolute inset-0 bg-gray-800 opacity-30"></div>
-      <!-- Content -->
-      <div class="relative z-10">
-        <h1 class="text-7xl md:text-8xl font-black uppercase tracking-tight mb-4 animate-fade-in" style="text-shadow: 3px 3px 6px rgba(0,0,0,0.7);">
-          From the Attic
-        </h1>
-        <p class="text-xl md:text-2xl font-light uppercase tracking-wide mb-6 animate-fade-in" style="animation-delay: 0.5s; text-shadow: 2px 2px 4px rgba(0,0,0,0.7);">
-          Vintage Redefined
-        </p>
-        <!-- Countdown Timer -->
-        <div id="countdown" class="text-xl md:text-2xl font-bold mb-8"></div>
-        <button onclick="toggleSignUp()" class="signup-button px-8 py-4 text-lg uppercase tracking-wider font-bold transition-all duration-500">
-          Join the Attic
-        </button>
-      </div>
-    </section>
-
-    <!-- Categories -->
-    <section class="py-24 px-8">
-      <h2 class="text-5xl font-black text-center mb-24 uppercase tracking-tight">The Collection</h2>
-      
-      <!-- Denim Section -->
-      <div class="mb-32">
-        <h3 class="text-4xl font-bold mb-12 border-b-2 border-gray-800 pb-4 uppercase tracking-wide">Vintage Denim</h3>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-          <!-- Product Card 1 -->
-          <div class="product-card group cursor-pointer" onclick="showProductDetails('product1')">
-            <div class="bg-gray-800 p-8 transition-all duration-500 hover:shadow-2xl transform hover:-translate-y-2">
-              <img src="images/shopping-2.jpeg" alt="1950s Levi's 501" class="w-full h-96 object-cover">
-              <h4 class="text-2xl mt-6 font-semibold">1950s Levi's 501</h4>
-              <p class="text-gray-400 text-lg font-light">$245</p>
-              <button onclick="addToCart('product1', event)" class="mt-6 w-full py-3 border-2 border-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-all duration-500 text-sm uppercase tracking-wider font-bold">Add to Cart</button>
-            </div>
-          </div>
-          <!-- Product Card 2 -->
-          <div class="product-card group cursor-pointer" onclick="showProductDetails('product2')">
-            <div class="bg-gray-800 p-8 transition-all duration-500 hover:shadow-2xl transform hover:-translate-y-2">
-              <img src="images/shopping-3.jpeg" alt="1960s Wrangler Jacket" class="w-full h-96 object-cover">
-              <h4 class="text-2xl mt-6 font-semibold">1960s Wrangler Jacket</h4>
-              <p class="text-gray-400 text-lg font-light">$190</p>
-              <button onclick="addToCart('product2', event)" class="mt-6 w-full py-3 border-2 border-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-all duration-500 text-sm uppercase tracking-wider font-bold">Add to Cart</button>
-            </div>
-          </div>
-          <!-- Product Card 3 -->
-          <div class="product-card group cursor-pointer" onclick="showProductDetails('product3')">
-            <div class="bg-gray-800 p-8 transition-all duration-500 hover:shadow-2xl transform hover:-translate-y-2">
-              <img src="images/shopping-2.jpeg" alt="1970s Denim Overalls" class="w-full h-96 object-cover">
-              <h4 class="text-2xl mt-6 font-semibold">1970s Denim Overalls</h4>
-              <p class="text-gray-400 text-lg font-light">$210</p>
-              <button onclick="addToCart('product3', event)" class="mt-6 w-full py-3 border-2 border-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-all duration-500 text-sm uppercase tracking-wider font-bold">Add to Cart</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- T-Shirts Section -->
-      <div class="mb-32">
-        <h3 class="text-4xl font-bold mb-12 border-b-2 border-gray-800 pb-4 uppercase tracking-wide">Classic T-Shirts</h3>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-          <!-- Product Card 4 - Metallica Tee -->
-          <div class="product-card group cursor-pointer" onclick="showProductDetails('product4')">
-            <div class="bg-gray-800 p-8 transition-all duration-700 hover:shadow-2xl transform hover:-translate-y-2">
-              <img src="/images/products/vintage-metallica-tee.jpg" alt="Vintage Metallica Tee" class="w-full h-96 object-cover">
-              <h4 class="text-2xl mt-6 font-semibold">Vintage Metallica Kill 'Em All Tee</h4>
-              <p class="text-gray-400 text-lg font-light">$85</p>
-              <button onclick="addToCart('product4', event)" class="mt-6 w-full py-3 border-2 border-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-all duration-500 text-sm uppercase tracking-wider font-bold">Add to Cart</button>
-            </div>
-          </div>
-          <!-- Product Card 5 - Coca-Cola Tee -->
-          <div class="product-card group cursor-pointer" onclick="showProductDetails('product5')">
-            <div class="bg-gray-800 p-8 transition-all duration-700 hover:shadow-2xl transform hover:-translate-y-2">
-              <img src="/images/products/vintage-coke-tee.jpg" alt="Vintage Coca-Cola Tee" class="w-full h-96 object-cover">
-              <h4 class="text-2xl mt-6 font-semibold">Vintage Coca-Cola Tee</h4>
-              <p class="text-gray-400 text-lg font-light">$75</p>
-              <button onclick="addToCart('product5', event)" class="mt-6 w-full py-3 border-2 border-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-all duration-500 text-sm uppercase tracking-wider font-bold">Add to Cart</button>
-            </div>
-          </div>
-          <!-- Product Card 6 - Graphic Tee -->
-          <div class="product-card group cursor-pointer" onclick="showProductDetails('product6')">
-            <div class="bg-gray-800 p-8 transition-all duration-700 hover:shadow-2xl transform hover:-translate-y-2">
-              <img src="/images/products/graphic-tee.jpg" alt="1990s Graphic Tee" class="w-full h-96 object-cover">
-              <h4 class="text-2xl mt-6 font-semibold">1990s Graphic Tee</h4>
-              <p class="text-gray-400 text-lg font-light">$65</p>
-              <button onclick="addToCart('product6', event)" class="mt-6 w-full py-3 border-2 border-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-all duration-500 text-sm uppercase tracking-wider font-bold">Add to Cart</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Jackets Section -->
-      <div class="mb-32">
-        <h3 class="text-4xl font-bold mb-12 border-b-2 border-gray-800 pb-4 uppercase tracking-wide">Statement Jackets</h3>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-          <!-- Product Card 7 -->
-          <div class="product-card group cursor-pointer" onclick="showProductDetails('product7')">
-            <div class="bg-gray-800 p-8 transition-all duration-700 hover:shadow-2xl transform hover:-translate-y-2">
-              <img src="images/shopping-4.jpeg" alt="1960s Leather Jacket" class="w-full h-96 object-cover">
-              <h4 class="text-2xl mt-6 font-semibold">1960s Leather Jacket</h4>
-              <p class="text-gray-400 text-lg font-light">$395</p>
-              <button onclick="addToCart('product7', event)" class="mt-6 w-full py-3 border-2 border-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-all duration-500 text-sm uppercase tracking-wider font-bold">Add to Cart</button>
-            </div>
-          </div>
-          <!-- Product Card 8 -->
-          <div class="product-card group cursor-pointer" onclick="showProductDetails('product8')">
-            <div class="bg-gray-800 p-8 transition-all duration-700 hover:shadow-2xl transform hover:-translate-y-2">
-              <img src="https://images.unsplash.com/photo-1533077161820-17e41f6a571d" alt="Vintage Bomber Jacket" class="w-full h-96 object-cover">
-              <h4 class="text-2xl mt-6 font-semibold">Vintage Bomber Jacket</h4>
-              <p class="text-gray-400 text-lg font-light">$285</p>
-              <button onclick="addToCart('product8', event)" class="mt-6 w-full py-3 border-2 border-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-all duration-500 text-sm uppercase tracking-wider font-bold">Add to Cart</button>
-            </div>
-          </div>
-          <!-- Product Card 9 -->
-          <div class="product-card group cursor-pointer" onclick="showProductDetails('product9')">
-            <div class="bg-gray-800 p-8 transition-all duration-700 hover:shadow-2xl transform hover:-translate-y-2">
-              <img src="https://images.unsplash.com/photo-1602810313037-2a46c03661d2" alt="Denim Trucker Jacket" class="w-full h-96 object-cover">
-              <h4 class="text-2xl mt-6 font-semibold">Denim Trucker Jacket</h4>
-              <p class="text-gray-400 text-lg font-light">$180</p>
-              <button onclick="addToCart('product9', event)" class="mt-6 w-full py-3 border-2 border-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-all duration-500 text-sm uppercase tracking-wider font-bold">Add to Cart</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Add this section where you want to display products -->
-    <section id="product-list" class="py-24 px-8">
-        <h2 class="text-5xl font-black text-center mb-24 uppercase tracking-tight">Our Products</h2>
-        <div id="productsContainer" class="grid grid-cols-1 md:grid-cols-3 gap-12"></div>
-    </section>
-  </div>
-
-  <!-- Product Detail Modal -->
-  <div id="productModal" class="fixed inset-0 bg-black bg-opacity-70 hidden flex items-center justify-center">
-    <div class="bg-gray-800 text-gray-100 p-6 rounded-lg max-w-xl w-full relative">
-      <button onclick="closeProductModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-200">
-        <i class="fas fa-times text-2xl"></i>
-      </button>
-      <div id="productModalContent">
-        <!-- Product details will be dynamically inserted here -->
-      </div>
-    </div>
-  </div>
-
-  <!-- Shopping Cart -->
-  <div id="cart" class="fixed top-0 right-0 h-full w-full md:w-96 bg-gray-900 bg-opacity-90 backdrop-blur-md transform translate-x-full transition-transform duration-500 z-50">
-    <div class="p-8 text-gray-100">
-      <h2 class="text-3xl font-bold mb-8 uppercase tracking-tight">Your Cart</h2>
-      <!-- Cart items will be dynamically inserted here -->
-      <div id="cartItems" class="space-y-6"></div>
-      <!-- Checkout Button -->
-      <button onclick="checkout()" class="w-full bg-gray-800 text-white py-4 mt-8 font-bold uppercase tracking-wider hover:bg-gray-700 transition-colors">
-        Checkout
-      </button>
-    </div>
-  </div>
-
-  <!-- Sign-Up Modal -->
-  <div id="signupModal" class="fixed inset-0 bg-black bg-opacity-95 hidden flex items-center justify-center">
-    <div class="bg-gray-100 text-gray-900 p-12 border-2 border-gray-300 w-[32rem]">
-      <h2 class="text-3xl font-bold text-center mb-8 uppercase tracking-tight">Join Our Collection</h2>
-      <form id="signupForm" class="flex flex-col">
-        <input type="email" placeholder="Your Email" class="mb-6 p-4 bg-gray-50 border-2 border-gray-300 focus:border-gray-500 outline-none" required>
-        <select name="stylePreference" class="mb-6 p-4 bg-gray-50 border-2 border-gray-300 focus:border-gray-500 outline-none" required>
-          <option value="" disabled selected>Select Your Style</option>
-          <option value="casual">Casual Vintage</option>
-          <option value="rockabilly">Rockabilly</option>
-          <option value="workwear">Workwear</option>
-          <option value="mod">Mod Style</option>
-        </select>
-        <button type="submit" class="py-4 bg-gray-900 text-gray-100 hover:bg-gray-800 transition-all duration-500 uppercase tracking-wider font-bold">Start Shopping</button>
-      </form>
-      <button onclick="toggleSignUp()" class="mt-6 text-sm text-gray-600 hover:text-gray-800 uppercase tracking-wider">Continue as Guest</button>
-    </div>
-  </div>
-
-  <!-- Checkout Modal -->
-  <div id="checkoutModal" class="fixed inset-0 bg-gray-900 bg-opacity-90 hidden flex items-center justify-center">
-    <div class="bg-white text-gray-900 p-6 rounded-md shadow-lg w-11/12 md:w-1/2 lg:w-1/3">
-      <h2 class="text-2xl font-semibold text-center mb-6">Checkout</h2>
-      <!-- Checkout form -->
-      <form id="checkoutForm" class="flex flex-col">
-        <input type="text" placeholder="Name" class="mb-4 p-3 rounded border border-gray-300 focus:outline-none focus:border-gray-500" required>
-        <input type="email" placeholder="Email" class="mb-4 p-3 rounded border border-gray-300 focus:outline-none focus:border-gray-500" required>
-        <input type="text" placeholder="Address" class="mb-4 p-3 rounded border border-gray-300 focus:outline-none focus:border-gray-500" required>
-        <!-- Add more fields as necessary -->
-        <button type="submit" class="py-3 rounded bg-gray-800 text-white hover:bg-gray-700 transition-colors duration-300">Submit Order</button>
-      </form>
-      <button onclick="closeCheckout()" class="mt-4 text-sm text-gray-500 hover:text-gray-700">Cancel</button>
-    </div>
-  </div>
-
-  <!-- Footer Section -->
-  <footer class="bg-gray-800 text-gray-100 py-6">
-    <div class="container mx-auto text-center">
-      <p class="mb-4 text-lg font-light">Looking for more vintage treasures?</p>
-      <a href="https://www.fromtheatticla.com" target="_blank" rel="noopener noreferrer" class="inline-block bg-gray-700 hover:bg-gray-600 text-gray-100 py-3 px-6 rounded transition-colors duration-300 uppercase tracking-wider font-bold">
-        Visit our store
-      </a>
-    </div>
-  </footer>
-
-  <!-- Include Stripe.js -->
-  <script src="https://js.stripe.com/v3/"></script>
-
-  <script>
-    // GSAP Animations
-    gsap.from('.hero-section h1', { opacity: 0, y: -50, duration: 1 });
-    gsap.from('.hero-section p', { opacity: 0, y: 50, duration: 1, delay: 0.5 });
-    gsap.from('.hero-section .signup-button', { opacity: 0, scale: 0.8, duration: 1, delay: 1 });
-    gsap.from('.product-card', { opacity: 0, y: 30, duration: 1, stagger: 0.2, delay: 1.5 });
-
-    // Countdown Timer
-    // ... existing countdown script ...
-
-    // Expanded Product Data
-    const products = {
-      product1: {
-        id: 'product1',
-        name: "1950s Levi's 501",
-        price: "$245",
-        images: [
-          "images/shopping-2.jpeg",
-          "images/shopping-3.jpeg",
-          "images/shopping-5.jpeg",
-        ],
-        description: "Authentic vintage Levi's jeans from the 1950s. Perfectly worn-in with a classic fit.",
-      },
-      product2: {
-        id: 'product2',
-        name: "1960s Wrangler Jacket",
-        price: "$190",
-        images: [
-          "/images/products/wrangler-front.jpg",
-          "/images/products/wrangler-back.jpg",
-          "/images/products/wrangler-detail.jpg"
-        ],
-        description: "Classic Wrangler denim jacket from the 1960s. Timeless style and durability.",
-      },
-      product3: {
-        id: 'product3',
-        name: "1970s Denim Overalls",
-        price: "$210",
-        images: [
-          "images/shopping-5.jpeg",
-          "images/shopping-6.jpeg",
-          "images/shopping-7.jpeg"
-        ],
-        description: "Comfortable and stylish overalls straight from the 70s. A vintage staple.",
-      },
-      product4: {
-        id: 'product4',
-        name: "Vintage Metallica Kill 'Em All Tee",
-        price: "$85",
-        images: [
-          "/images/products/vintage-metallica-tee.jpg"
-        ],
-        description: "Authentic vintage Metallica Kill 'Em All t-shirt from the 1983 tour. A rare piece of metal history.",
-      },
-      product5: {
-        id: 'product5',
-        name: "Vintage Coca-Cola Tee",
-        price: "$75",
-        images: [
-          "/images/products/vintage-coke-tee.jpg"
-        ],
-        description: "Classic Coca-Cola branded t-shirt from the 70s. Refresh your wardrobe with this iconic piece.",
-      },
-      product6: {
-        id: 'product6',
-        name: "1990s Graphic Tee",
-        price: "$65",
-        images: [
-          "/images/products/graphic-tee.jpg"
-        ],
-        description: "Bold graphics and vibrant colors define this 90s classic tee.",
-      }
-    };
-
-    // Function to show product details in modal
-    function showProductDetails(productId) {
-      const product = products[productId];
-      const modalContent = document.getElementById('productModalContent');
-      modalContent.innerHTML = `
-        <img src="${product.image}" alt="${product.name}" class="w-full h-96 object-cover mb-4">
-        <h3 class="text-3xl font-bold mb-2">${product.name}</h3>
-        <p class="text-xl text-gray-400 mb-4">${product.price}</p>
-        <p class="mb-6">${product.description}</p>
-        <button onclick="addToCart('${productId}')" class="w-full py-3 bg-gray-700 hover:bg-gray-600 transition-colors duration-300 uppercase tracking-wider font-bold">Add to Cart</button>
-      `;
-      document.getElementById('productModal').classList.remove('hidden');
-    }
-
-    // Function to close product modal
-    function closeProductModal() {
-      document.getElementById('productModal').classList.add('hidden');
-    }
-
-    // Initialize Stripe.js on the client
-    const stripe = Stripe('YOUR_STRIPE_PUBLISHABLE_KEY'); // Replace with your Stripe Publishable Key
-
-    // Function to proceed to checkout
-    async function checkout() {
-      if (cartItems.length === 0) {
-        alert('Your cart is empty.');
-        return;
-      }
-
-      // Send cart items to the server to create a checkout session
-      try {
-        const response = await fetch('/create-checkout-session', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ cartItems })
-        });
-
-        const { id } = await response.json();
-
-        // Redirect to Stripe Checkout
-        const { error } = await stripe.redirectToCheckout({ sessionId: id });
-        if (error) {
-          console.error('Stripe redirect error:', error);
-        }
-      } catch (error) {
-        console.error('Error during checkout:', error);
-      }
-    }
-
-    // Function to add product to cart
-    const cartItems = [];
-
-    function addToCart(productId, event) {
-      event.stopPropagation(); // Prevent triggering product detail modal
-      const product = products[productId];
-
-      // Check if product is already in cart
-      const existingItem = cartItems.find(item => item.id === productId);
-
-      if (existingItem) {do
-        existingItem.quantity += 1;
-      } else {
-        cartItems.push({
-          id: product.id,
-          name: product.name,
-          price: parseFloat(product.price.replace('$', '')), // Convert price to number
-          images: product.images, // Use product images
-          quantity: 1
-        });
-      }
-
-      alert(`${product.name} has been added to your cart.`);
-      displayCartItems();
-    }
-
-    // Function to display cart items
-    function displayCartItems() {
-      const cartItemsContainer = document.getElementById('cartItems');
-      cartItemsContainer.innerHTML = '';
-
-      cartItems.forEach(item => {
-        const cartItem = document.createElement('div');
-        cartItem.classList.add('flex', 'justify-between', 'items-center');
-        cartItem.innerHTML = `
-          <div>
-            <h4 class="text-lg font-semibold">${item.name}</h4>
-            <p class="text-gray-400">$${item.price} x ${item.quantity}</p>
-          </div>
-          <button onclick="removeFromCart('${item.id}')" class="text-gray-400 hover:text-gray-200">
-            <i class="fas fa-trash"></i>
-          </button>
-        `;
-        cartItemsContainer.appendChild(cartItem);
-      });
-    }
-
-    // Function to remove item from cart
-    function removeFromCart(productId) {
-      const index = cartItems.findIndex(item => item.id === productId);
-      if (index > -1) {
-        cartItems.splice(index, 1);
-        displayCartItems();
-      }
-    }
-
-    // Function to open and close the checkout modal
-    function openCheckout() {
-      document.getElementById('checkoutModal').classList.remove('hidden');
-    }
-
-    function closeCheckout() {
-      document.getElementById('checkoutModal').classList.add('hidden');
-    }
-
-    // Function to toggle sign-up modal visibility
-    function toggleSignUp() {
-      document.getElementById('signupModal').classList.toggle('hidden');
-    }
-
-    // Close product modal when clicking outside content
-    document.getElementById('productModal').addEventListener('click', function(e) {
-      if (e.target === this) {
-        closeProductModal();
-      }
-    });
-
-    async function loadProducts() {
-        try {
-            const response = await fetch('/api/products');
-            const products = await response.json();
-            
-            const container = document.getElementById('productsContainer');
-            container.innerHTML = products.map(product => `
-                <div class="product-card">
-                    <img src="${product.imageUrl}" alt="${product.name}" class="w-full h-96 object-cover">
-                    <h4 class="text-2xl mt-6 font-semibold">${product.name}</h4>
-                    <p class="text-gray-400 text-lg font-light">$${product.price}</p>
-                    <button onclick="addToCart('${product.id}')" class="mt-6 w-full py-3 border-2 border-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-all duration-500 text-sm uppercase tracking-wider font-bold">Add to Cart</button>
+            <!-- Gallery Display Section -->
+            <section class="gallery-container">
+                <h2>Gallery</h2>
+                <div id="gallery" class="gallery-grid">
+                    <!-- Gallery items will be dynamically inserted here -->
                 </div>
-            `).join('');
-        } catch (error) {
-            console.error('Error loading products:', error);
-        }
-    }
+            </section>
+        </main>
 
-    // Call loadProducts on page load
-    window.onload = loadProducts;
-  </script>
+        <footer>
+            <p>&copy; 2024 Art Gallery. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Fetch and display gallery items
+        async function loadGallery() {
+            try {
+                const response = await fetch('/api/gallery');
+                const items = await response.json();
+                const galleryDiv = document.getElementById('gallery');
+                
+                galleryDiv.innerHTML = items.map(item => `
+                    <div class="gallery-item">
+                        <img src="${item.image_url}" alt="${item.title}">
+                        <h3>${item.title}</h3>
+                        <p>${item.description}</p>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Error loading gallery:', error);
+            }
+        }
+
+        // Handle form submission
+        document.getElementById('galleryForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = {
+                title: document.getElementById('title').value,
+                description: document.getElementById('description').value,
+                image_url: document.getElementById('image_url').value
+            };
+
+            try {
+                const response = await fetch('/api/gallery', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                if (response.ok) {
+                    // Reset form and reload gallery
+                    e.target.reset();
+                    loadGallery();
+                }
+            } catch (error) {
+                console.error('Error adding gallery item:', error);
+            }
+        });
+
+        // Load gallery on page load
+        loadGallery();
+
+        // Check server status
+        fetch('/health')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('status').textContent = 
+                    data.status === 'OK' ? 'Server is running' : 'Server error';
+            })
+            .catch(error => {
+                document.getElementById('status').textContent = 'Server is not responding';
+            });
+    </script>
 </body>
-</html>
+</html> 
