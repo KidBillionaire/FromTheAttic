@@ -165,6 +165,12 @@
         </div>
       </div>
     </section>
+
+    <!-- Add this section where you want to display products -->
+    <section id="product-list" class="py-24 px-8">
+        <h2 class="text-5xl font-black text-center mb-24 uppercase tracking-tight">Our Products</h2>
+        <div id="productsContainer" class="grid grid-cols-1 md:grid-cols-3 gap-12"></div>
+    </section>
   </div>
 
   <!-- Product Detail Modal -->
@@ -441,6 +447,28 @@
         closeProductModal();
       }
     });
+
+    async function loadProducts() {
+        try {
+            const response = await fetch('/api/products');
+            const products = await response.json();
+            
+            const container = document.getElementById('productsContainer');
+            container.innerHTML = products.map(product => `
+                <div class="product-card">
+                    <img src="${product.imageUrl}" alt="${product.name}" class="w-full h-96 object-cover">
+                    <h4 class="text-2xl mt-6 font-semibold">${product.name}</h4>
+                    <p class="text-gray-400 text-lg font-light">$${product.price}</p>
+                    <button onclick="addToCart('${product.id}')" class="mt-6 w-full py-3 border-2 border-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-all duration-500 text-sm uppercase tracking-wider font-bold">Add to Cart</button>
+                </div>
+            `).join('');
+        } catch (error) {
+            console.error('Error loading products:', error);
+        }
+    }
+
+    // Call loadProducts on page load
+    window.onload = loadProducts;
   </script>
 </body>
 </html>

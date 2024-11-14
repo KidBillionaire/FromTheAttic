@@ -20,6 +20,10 @@
       "dest": "/public/images/$1"
     },
     {
+      "src": "/js/(.*)",
+      "dest": "/public/js/$1"
+    },
+    {
       "handle": "filesystem"
     },
     {
