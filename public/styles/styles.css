@@ -1,0 +1,19 @@
+/* ... existing styles ... */
+
+/* Modal Content */
+.modal-content {
+  width: 90%;
+  max-width: 500px;
+  max-height: 90vh; /* Ensure modal doesn't exceed viewport height */
+  overflow-y: auto; /* Add scrolling if content exceeds max-height */
+}
+
+/* Adjust Sign-Up Modal */
+#signupModal .modal-content {
+  padding: 2rem 1rem;
+}
+
+/* Adjust Gabe Modal */
+#gabeModal .modal-content {
+  padding: 2rem 1rem;
+} 

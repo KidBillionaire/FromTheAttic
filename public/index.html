@@ -19,6 +19,8 @@
     <div class="container mx-auto flex justify-between items-center px-6">
       <a href="#" class="text-3xl font-bold">From the Attic</a>
       <div class="space-x-6">
+        <!-- About Link -->
+        <a href="/about.html" class="hover:text-gray-400 transition-colors duration-300">About</a>
         <!-- eBay Store Link -->
         <a href="https://www.ebay.com/usr/your-ebay-username" target="_blank" rel="noopener noreferrer" class="hover:text-gray-400 transition-colors duration-300">
           eBay Store
@@ -68,7 +70,7 @@
           <!-- Product Card 1 -->
           <div class="product-card group cursor-pointer" onclick="showProductDetails('product1')">
             <div class="bg-gray-800 p-8 transition-all duration-500 hover:shadow-2xl transform hover:-translate-y-2">
-              <img src="https://images.unsplash.com/photo-1582418702059-97ebafb35d09" alt="1950s Levi's 501" class="w-full h-96 object-cover">
+              <img src="images/shopping-2.jpeg" alt="1950s Levi's 501" class="w-full h-96 object-cover">
               <h4 class="text-2xl mt-6 font-semibold">1950s Levi's 501</h4>
               <p class="text-gray-400 text-lg font-light">$245</p>
               <button onclick="addToCart('product1', event)" class="mt-6 w-full py-3 border-2 border-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-all duration-500 text-sm uppercase tracking-wider font-bold">Add to Cart</button>
@@ -77,7 +79,7 @@
           <!-- Product Card 2 -->
           <div class="product-card group cursor-pointer" onclick="showProductDetails('product2')">
             <div class="bg-gray-800 p-8 transition-all duration-500 hover:shadow-2xl transform hover:-translate-y-2">
-              <img src="https://images.unsplash.com/photo-1575109190421-0961b1a559f2" alt="1960s Wrangler Jacket" class="w-full h-96 object-cover">
+              <img src="images/shopping-3.jpeg" alt="1960s Wrangler Jacket" class="w-full h-96 object-cover">
               <h4 class="text-2xl mt-6 font-semibold">1960s Wrangler Jacket</h4>
               <p class="text-gray-400 text-lg font-light">$190</p>
               <button onclick="addToCart('product2', event)" class="mt-6 w-full py-3 border-2 border-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-all duration-500 text-sm uppercase tracking-wider font-bold">Add to Cart</button>
@@ -86,7 +88,7 @@
           <!-- Product Card 3 -->
           <div class="product-card group cursor-pointer" onclick="showProductDetails('product3')">
             <div class="bg-gray-800 p-8 transition-all duration-500 hover:shadow-2xl transform hover:-translate-y-2">
-              <img src="https://images.unsplash.com/photo-1593032460683-16041d22553c" alt="1970s Denim Overalls" class="w-full h-96 object-cover">
+              <img src="images/shopping-2.jpeg" alt="1970s Denim Overalls" class="w-full h-96 object-cover">
               <h4 class="text-2xl mt-6 font-semibold">1970s Denim Overalls</h4>
               <p class="text-gray-400 text-lg font-light">$210</p>
               <button onclick="addToCart('product3', event)" class="mt-6 w-full py-3 border-2 border-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-all duration-500 text-sm uppercase tracking-wider font-bold">Add to Cart</button>
@@ -99,28 +101,28 @@
       <div class="mb-32">
         <h3 class="text-4xl font-bold mb-12 border-b-2 border-gray-800 pb-4 uppercase tracking-wide">Classic T-Shirts</h3>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-          <!-- Product Card 4 -->
+          <!-- Product Card 4 - Metallica Tee -->
           <div class="product-card group cursor-pointer" onclick="showProductDetails('product4')">
             <div class="bg-gray-800 p-8 transition-all duration-700 hover:shadow-2xl transform hover:-translate-y-2">
-              <img src="https://images.unsplash.com/photo-1612685246510-51f8cec0d458" alt="1980s Band Tee" class="w-full h-96 object-cover">
-              <h4 class="text-2xl mt-6 font-semibold">1980s Band Tee</h4>
+              <img src="/images/products/vintage-metallica-tee.jpg" alt="Vintage Metallica Tee" class="w-full h-96 object-cover">
+              <h4 class="text-2xl mt-6 font-semibold">Vintage Metallica Kill 'Em All Tee</h4>
               <p class="text-gray-400 text-lg font-light">$85</p>
               <button onclick="addToCart('product4', event)" class="mt-6 w-full py-3 border-2 border-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-all duration-500 text-sm uppercase tracking-wider font-bold">Add to Cart</button>
             </div>
           </div>
-          <!-- Product Card 5 -->
+          <!-- Product Card 5 - Coca-Cola Tee -->
           <div class="product-card group cursor-pointer" onclick="showProductDetails('product5')">
             <div class="bg-gray-800 p-8 transition-all duration-700 hover:shadow-2xl transform hover:-translate-y-2">
-              <img src="https://images.unsplash.com/photo-1592388733128-de863d90aba1" alt="Vintage Coca-Cola Tee" class="w-full h-96 object-cover">
+              <img src="/images/products/vintage-coke-tee.jpg" alt="Vintage Coca-Cola Tee" class="w-full h-96 object-cover">
               <h4 class="text-2xl mt-6 font-semibold">Vintage Coca-Cola Tee</h4>
               <p class="text-gray-400 text-lg font-light">$75</p>
               <button onclick="addToCart('product5', event)" class="mt-6 w-full py-3 border-2 border-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-all duration-500 text-sm uppercase tracking-wider font-bold">Add to Cart</button>
             </div>
           </div>
-          <!-- Product Card 6 -->
+          <!-- Product Card 6 - Graphic Tee -->
           <div class="product-card group cursor-pointer" onclick="showProductDetails('product6')">
             <div class="bg-gray-800 p-8 transition-all duration-700 hover:shadow-2xl transform hover:-translate-y-2">
-              <img src="https://images.unsplash.com/photo-1591385606926-642c11b4405a" alt="1990s Graphic Tee" class="w-full h-96 object-cover">
+              <img src="/images/products/graphic-tee.jpg" alt="1990s Graphic Tee" class="w-full h-96 object-cover">
               <h4 class="text-2xl mt-6 font-semibold">1990s Graphic Tee</h4>
               <p class="text-gray-400 text-lg font-light">$65</p>
               <button onclick="addToCart('product6', event)" class="mt-6 w-full py-3 border-2 border-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-all duration-500 text-sm uppercase tracking-wider font-bold">Add to Cart</button>
@@ -136,7 +138,7 @@
           <!-- Product Card 7 -->
           <div class="product-card group cursor-pointer" onclick="showProductDetails('product7')">
             <div class="bg-gray-800 p-8 transition-all duration-700 hover:shadow-2xl transform hover:-translate-y-2">
-              <img src="https://images.unsplash.com/photo-1512427691650-1e1f0a67b486" alt="1960s Leather Jacket" class="w-full h-96 object-cover">
+              <img src="images/shopping-4.jpeg" alt="1960s Leather Jacket" class="w-full h-96 object-cover">
               <h4 class="text-2xl mt-6 font-semibold">1960s Leather Jacket</h4>
               <p class="text-gray-400 text-lg font-light">$395</p>
               <button onclick="addToCart('product7', event)" class="mt-6 w-full py-3 border-2 border-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-all duration-500 text-sm uppercase tracking-wider font-bold">Add to Cart</button>
@@ -255,9 +257,9 @@
         name: "1950s Levi's 501",
         price: "$245",
         images: [
-          "images/levis501-front.jpg",
-          "images/levis501-back.jpg",
-          "images/levis501-closeup.jpg"
+          "images/shopping-2.jpeg",
+          "images/shopping-3.jpeg",
+          "images/shopping-5.jpeg",
         ],
         description: "Authentic vintage Levi's jeans from the 1950s. Perfectly worn-in with a classic fit.",
       },
@@ -265,59 +267,51 @@
         id: 'product2',
         name: "1960s Wrangler Jacket",
         price: "$190",
-        image: "https://images.unsplash.com/photo-1575109190421-0961b1a559f2",
+        images: [
+          "/images/products/wrangler-front.jpg",
+          "/images/products/wrangler-back.jpg",
+          "/images/products/wrangler-detail.jpg"
+        ],
         description: "Classic Wrangler denim jacket from the 1960s. Timeless style and durability.",
       },
       product3: {
         id: 'product3',
         name: "1970s Denim Overalls",
         price: "$210",
-        image: "https://images.unsplash.com/photo-1593032460683-16041d22553c",
+        images: [
+          "images/shopping-5.jpeg",
+          "images/shopping-6.jpeg",
+          "images/shopping-7.jpeg"
+        ],
         description: "Comfortable and stylish overalls straight from the 70s. A vintage staple.",
       },
       product4: {
         id: 'product4',
-        name: "1980s Band Tee",
+        name: "Vintage Metallica Kill 'Em All Tee",
         price: "$85",
-        image: "https://images.unsplash.com/photo-1612685246510-51f8cec0d458",
-        description: "Retro band tee featuring iconic 80s rock bands. A must-have for music lovers.",
+        images: [
+          "/images/products/vintage-metallica-tee.jpg"
+        ],
+        description: "Authentic vintage Metallica Kill 'Em All t-shirt from the 1983 tour. A rare piece of metal history.",
       },
       product5: {
         id: 'product5',
         name: "Vintage Coca-Cola Tee",
         price: "$75",
-        image: "https://images.unsplash.com/photo-1592388733128-de863d90aba1",
-        description: "Classic Coca-Cola branded t-shirt from the 70s. Refresh your wardrobe.",
+        images: [
+          "/images/products/vintage-coke-tee.jpg"
+        ],
+        description: "Classic Coca-Cola branded t-shirt from the 70s. Refresh your wardrobe with this iconic piece.",
       },
       product6: {
         id: 'product6',
         name: "1990s Graphic Tee",
         price: "$65",
-        image: "https://images.unsplash.com/photo-1591385606926-642c11b4405a",
+        images: [
+          "/images/products/graphic-tee.jpg"
+        ],
         description: "Bold graphics and vibrant colors define this 90s classic tee.",
-      },
-      product7: {
-        id: 'product7',
-        name: "1960s Leather Jacket",
-        price: "$395",
-        image: "https://images.unsplash.com/photo-1512427691650-1e1f0a67b486",
-        description: "Top-grain leather jacket with vintage charm and modern appeal.",
-      },
-      product8: {
-        id: 'product8',
-        name: "Vintage Bomber Jacket",
-        price: "$285",
-        image: "https://images.unsplash.com/photo-1533077161820-17e41f6a571d",
-        description: "A stylish bomber jacket from the 80s. Perfect for making a statement.",
-      },
-      product9: {
-        id: 'product9',
-        name: "Denim Trucker Jacket",
-        price: "$180",
-        image: "https://images.unsplash.com/photo-1602810313037-2a46c03661d2",
-        description: "Iconic trucker jacket with timeless design and rugged durability.",
-      },
-      // You can add more products here
+      }
     };
 
     // Function to show product details in modal
@@ -381,7 +375,7 @@
       // Check if product is already in cart
       const existingItem = cartItems.find(item => item.id === productId);
 
-      if (existingItem) {
+      if (existingItem) {do
         existingItem.quantity += 1;
       } else {
         cartItems.push({

@@ -687,4 +687,60 @@ body {
 }
 
 /* ... existing code ... */
+
+/* Pink overlay effect */
+.hero-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    45deg,
+    rgba(219, 39, 119, 0.3),
+    rgba(236, 72, 153, 0.3)
+  );
+  mix-blend-mode: multiply;
+  z-index: 1;
+}
+
+/* Responsive navigation */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+  }
+  
+  .nav-links.active {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: rgba(17, 24, 39, 0.95);
+    padding: 1rem;
+  }
+  
+  .nav-links.active a {
+    padding: 0.5rem 0;
+  }
+}
+
+/* Product image gallery */
+.product-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.product-gallery img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 0.5rem;
+  transition: transform 0.3s ease;
+}
+
+.product-gallery img:hover {
+  transform: scale(1.05);
+}
   
