@@ -42,7 +42,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const response = await fetch('/api/gallery', {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY}`
                     },
                     body: JSON.stringify(formData)
                 });
@@ -52,7 +53,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     await loadGallery();
                     showNotification('Artwork added successfully!', 'success');
                 } else {
-                    showNotification('Failed to add artwork', 'error');
+                    const error = await response.json();
+                    showNotification(error.error || 'Failed to add artwork', 'error');
                 }
             } catch (error) {
                 console.error('Error adding gallery item:', error);

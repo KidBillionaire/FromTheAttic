@@ -1,76 +1,82 @@
 require('dotenv').config();
 const express = require('express');
-const { Pool } = require('pg');
 const path = require('path');
+const { createClient } = require('@supabase/supabase-js');
+const fs = require('fs');
 
-// Initialize Express app
 const app = express();
 
-// PostgreSQL connection configuration
-const pool = new Pool({
-  user: process.env.PGUSER,
-  host: process.env.PGHOST,
-  database: process.env.PGDATABASE,
-  password: process.env.PGPASSWORD,
-  port: process.env.PGPORT,
+// Middleware for parsing JSON bodies
+app.use(express.json());
+
+// Load SSL certificate
+const sslCert = fs.readFileSync(path.join(__dirname, 'isrg-root-x1.pem'));
+
+// Supabase client setup with proper SSL configuration
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseAnonKey = process.env.SUPABASE_ANON_KEY;
+const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+  auth: {
+    autoRefreshToken: true,
+    persistSession: false
+  },
+  db: {
+    schema: 'public'
+  }
 });
 
-// Middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// Serve static files
+app.use(express.static(path.join(__dirname, 'public')));
 
-// Serve static files from public directory
-app.use(express.static('public'));
-
-// API endpoint for gallery
+// API endpoint to fetch gallery items
 app.get('/api/gallery', async (req, res) => {
   try {
-    const result = await pool.query(`
-      SELECT * FROM gallery_items 
-      ORDER BY created_at DESC
-    `);
-    res.json(result.rows);
+    const { data, error } = await supabase
+      .from('gallery_items')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (error) throw error;
+    res.json(data);
   } catch (err) {
     console.error('Error fetching gallery items:', err);
     res.status(500).json({ error: 'Failed to fetch gallery items' });
   }
 });
 
-// Create a new gallery item
+// API endpoint to add gallery items
 app.post('/api/gallery', async (req, res) => {
   const { title, description, image_url } = req.body;
   
+  if (!title || !description || !image_url) {
+    return res.status(400).json({ error: 'Missing required fields' });
+  }
+
   try {
-    const result = await pool.query(
-      `INSERT INTO gallery_items (title, description, image_url) 
-       VALUES ($1, $2, $3) 
-       RETURNING *`,
-      [title, description, image_url]
-    );
-    res.status(201).json(result.rows[0]);
+    const { data, error } = await supabase
+      .from('gallery_items')
+      .insert([{ title, description, image_url }])
+      .select()
+      .single();
+
+    if (error) throw error;
+    res.status(201).json(data);
   } catch (err) {
     console.error('Error creating gallery item:', err);
     res.status(500).json({ error: 'Failed to create gallery item' });
   }
 });
 
-// Test database connection
-pool.connect((err, client, release) => {
-  if (err) {
-    return console.error('Error acquiring client', err.stack);
+// Health check endpoint
+app.get('/health', async (req, res) => {
+  try {
+    const { data, error } = await supabase.from('gallery_items').select('count');
+    if (error) throw error;
+    res.status(200).json({ status: 'OK' });
+  } catch (err) {
+    console.error('Health check failed:', err);
+    res.status(500).json({ status: 'ERROR', message: err.message });
   }
-  console.log('Successfully connected to PostgreSQL database');
-  release();
-});
-
-// Basic route
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
-
-// Health check route
-app.get('/health', (req, res) => {
-  res.status(200).json({ status: 'OK' });
 });
 
 // Error handling middleware
@@ -80,7 +86,6 @@ app.use((err, req, res, next) => {
 });
 
 const PORT = process.env.PORT || 3000;
-
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
