@@ -10,18 +10,22 @@
       "use": "@vercel/static"
     }
   ],
-  "routes": [
+  "rewrites": [
     {
-      "src": "/api/(.*)",
-      "dest": "server.js"
+      "source": "/api/:path*",
+      "destination": "/server.js"
     },
     {
-      "src": "/health",
-      "dest": "server.js"
+      "source": "/health",
+      "destination": "/server.js"
     },
     {
-      "src": "/(.*)",
-      "dest": "/public/$1"
+      "source": "/",
+      "destination": "/server.js"
+    },
+    {
+      "source": "/:path*",
+      "destination": "/server.js"
     }
   ],
   "env": {
@@ -29,12 +33,6 @@
     "DATABASE_URL": "@database_url"
   },
   "regions": ["sfo1"],
-  "functions": {
-    "server.js": {
-      "memory": 1024,
-      "maxDuration": 10
-    }
-  },
   "headers": [
     {
       "source": "/api/(.*)",
@@ -45,4 +43,4 @@
       ]
     }
   ]
-} 
+}
